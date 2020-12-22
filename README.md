@@ -5,3 +5,8 @@ Project for demonstrate distributed system
 ```
 ./gradlew clean build bootRun -test --args='--server.port=8081'
 ```
+
+## worker-service
+```
+./gradlew clean build bootRun -x test --args='--server.port=8082'
+```
