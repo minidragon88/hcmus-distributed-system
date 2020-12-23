@@ -31,6 +31,16 @@ public final class AddressUtility implements ApplicationContextAware
         return Integer.valueOf(getEnvironment().getProperty("server.port"));
     }
 
+    public static String getMasterServerHost()
+    {
+        return getEnvironment().getProperty("master.host");
+    }
+
+    public static int getMasterServerPort()
+    {
+        return Integer.valueOf(getEnvironment().getProperty("master.port"));
+    }
+
     private static Environment getEnvironment()
     {
         return context.getEnvironment();
