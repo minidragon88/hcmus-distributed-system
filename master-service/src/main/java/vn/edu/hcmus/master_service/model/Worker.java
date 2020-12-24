@@ -1,7 +1,5 @@
 package vn.edu.hcmus.master_service.model;
 
-import java.util.Calendar;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,17 +8,19 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import java.util.Calendar;
+
 @Entity
 @Table(name = "workers")
 @IdClass(WorkerId.class)
 public class Worker
 {
     @Id
-    @Column(name="service_name")
+    @Column(name = "service_name")
     private String serviceName;
 
     @Id
-    @Column(name="host_address")
+    @Column(name = "host_address")
     private String hostAddress;
 
     @Id
@@ -28,17 +28,17 @@ public class Worker
 
     private int capacity;
 
-    @Column(name="current_processing")
+    @Column(name = "current_processing")
     private int currentProcessing;
 
-    @Column(name="current_available")
+    @Column(name = "current_available")
     private int currentAvailable;
 
-    @Column(name="created_time")
+    @Column(name = "created_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar createdTime;
 
-    @Column(name="last_updated_time")
+    @Column(name = "last_updated_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar lastUpdatedTime;
 
@@ -56,52 +56,64 @@ public class Worker
         this.createdTime =  Calendar.getInstance();
         this.lastUpdatedTime =  Calendar.getInstance();
     }
-    
-    public String getServiceName() {
+
+    public String getServiceName()
+    {
         return serviceName;
     }
 
-    public void setServiceName(final String serviceName) {
+    public void setServiceName(final String serviceName)
+    {
         this.serviceName = serviceName;
     }
 
-    public String getHostAddress() {
+    public String getHostAddress()
+    {
         return hostAddress;
     }
 
-    public void setHostAddress(final String hostAddress) {
+    public void setHostAddress(final String hostAddress)
+    {
         this.hostAddress = hostAddress;
     }
 
-    public int getPort() {
+    public int getPort()
+    {
         return port;
     }
 
-    public void setPort(final int port) {
+    public void setPort(final int port)
+    {
         this.port = port;
     }
 
-    public int getCapacity() {
+    public int getCapacity()
+    {
         return capacity;
     }
 
-    public void setCapacity(final int capacity) {
+    public void setCapacity(final int capacity)
+    {
         this.capacity = capacity;
     }
 
-    public int getCurrentProcessing() {
+    public int getCurrentProcessing()
+    {
         return currentProcessing;
     }
 
-    public void setCurrentProcessing(final int currentProcessing) {
+    public void setCurrentProcessing(final int currentProcessing)
+    {
         this.currentProcessing = currentProcessing;
     }
 
-    public int getCurrentAvailable() {
+    public int getCurrentAvailable()
+    {
         return currentAvailable;
     }
 
-    public void setCurrentAvailable(final int currentAvailable) {
+    public void setCurrentAvailable(final int currentAvailable)
+    {
         this.currentAvailable = currentAvailable;
     }
 }

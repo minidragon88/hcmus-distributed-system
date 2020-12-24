@@ -8,7 +8,9 @@ public class WorkerId implements Serializable
     private String serviceName;
     private String hostAddress;
     private int port;
-    
+
+    public WorkerId() {}
+
     public WorkerId(final String serviceName, final String hostAddress, final int port)
     {
         this.setServiceName(serviceName);
