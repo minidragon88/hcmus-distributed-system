@@ -5,7 +5,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import vn.edu.hcmus.worker_service.message.APIResponse;
-import vn.edu.hcmus.worker_service.message.WorkerRegisterMessage;
+import vn.edu.hcmus.worker_service.message.WorkerStatusMessage;
 
 public interface MasterApi
 {
@@ -13,6 +13,6 @@ public interface MasterApi
         "Accept: application/json",
         "Content-Type: application/json"
     })
-    @POST("workers/register")
-    Call<APIResponse<String>> register(@Body WorkerRegisterMessage message);
+    @POST("workers/status")
+    Call<APIResponse<String>> updateStatus(@Body WorkerStatusMessage message);
 }

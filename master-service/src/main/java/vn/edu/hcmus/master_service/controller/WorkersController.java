@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.edu.hcmus.master_service.message.APIResponse;
-import vn.edu.hcmus.master_service.message.WorkerRegisterMessage;
+import vn.edu.hcmus.master_service.message.WorkerStatusMessage;
 
 import java.util.Map;
 @RestController
@@ -24,9 +24,9 @@ public class WorkersController
         return "Master!";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/status")
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    public ResponseEntity<APIResponse<String>> register(@RequestHeader final Map<String, String> headers, @RequestBody final WorkerRegisterMessage message)
+    public ResponseEntity<APIResponse<String>> register(@RequestHeader final Map<String, String> headers, @RequestBody final WorkerStatusMessage message)
     {
         return new APIResponse<String>(HttpStatus.OK.value(), "Registered successfully", null).toResponseEntity();
     }

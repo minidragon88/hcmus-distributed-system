@@ -8,7 +8,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import vn.edu.hcmus.worker_service.api.MasterApi;
 import vn.edu.hcmus.worker_service.message.APIResponse;
-import vn.edu.hcmus.worker_service.message.WorkerRegisterMessage;
+import vn.edu.hcmus.worker_service.message.WorkerStatusMessage;
 import vn.edu.hcmus.worker_service.util.AddressUtility;
 import vn.edu.hcmus.worker_service.util.Utilities;
 
@@ -20,10 +20,10 @@ public class StartUpComponent implements ApplicationListener<ApplicationReadyEve
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event)
     {
-        final WorkerRegisterMessage message = new WorkerRegisterMessage("worker", AddressUtility.getServerAddress(), AddressUtility.getServerPort());
+        final WorkerStatusMessage message = new WorkerStatusMessage("worker", AddressUtility.getServerAddress(), AddressUtility.getServerPort(), 10, 0, 10);
         final Retrofit retrofit = Utilities.getRetrofit(String.format("http://%s:%s", AddressUtility.getMasterServerHost(), AddressUtility.getMasterServerPort()));
         final MasterApi api = retrofit.create(MasterApi.class);
-        final Call<APIResponse<String>> request = api.register(message);
+        final Call<APIResponse<String>> request = api.updateStatus(message);
         Response<APIResponse<String>> response;
         try {
             response = request.execute();

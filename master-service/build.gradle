@@ -22,9 +22,6 @@ dependencies {
     runtimeOnly group: 'com.h2database', name: 'h2', version: '1.4.200'
     compile group: 'com.squareup.retrofit2', name: 'retrofit', version: retrofitVersion
     compile group: 'com.squareup.retrofit2', name: 'converter-gson', version: retrofitVersion
-
-    // testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation "junit:junit:4.12"
 }
 
 checkstyle {

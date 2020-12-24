@@ -1,16 +1,19 @@
-package vn.edu.hcmus.worker_service.message;
+package vn.edu.hcmus.master_service.model;
 
-public class WorkerRegisterMessage
+import java.io.Serializable;
+
+public class WorkerId implements Serializable
 {
+    private static final long serialVersionUID = 8361055844997491028L;
     private String serviceName;
     private String hostAddress;
     private int port;
-
-    public WorkerRegisterMessage(final String serviceName, final String hostAddress, final int port)
+    
+    public WorkerId(final String serviceName, final String hostAddress, final int port)
     {
-        this.serviceName = serviceName;
-        this.hostAddress = hostAddress;
-        this.port = port;
+        this.setServiceName(serviceName);
+        this.setHostAddress(hostAddress);
+        this.setPort(port);
     }
 
     public String getServiceName()
