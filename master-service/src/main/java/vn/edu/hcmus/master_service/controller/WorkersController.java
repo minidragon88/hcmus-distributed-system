@@ -20,6 +20,7 @@ import vn.edu.hcmus.master_service.util.Utilities;
 
 import javax.persistence.EntityManager;
 
+import java.util.Calendar;
 import java.util.Map;
 @RestController
 @RequestMapping("/workers")
@@ -42,12 +43,13 @@ public class WorkersController
     {
         final WorkerId id = Utilities.toWorkerId(message);
         Worker worker = workerService.findById(id);
-        System.out.println("worker is");
-        System.out.println(worker);
         if (worker == null) {
             worker = Utilities.toWorker(message);
-            entityManager.persist(worker);
         }
+        else {
+            worker.setLastUpdatedTime(Calendar.getInstance());
+        }
+        entityManager.persist(worker);
         return new APIResponse<String>(HttpStatus.OK.value(), "Registered successfully", null).toResponseEntity();
     }
 }

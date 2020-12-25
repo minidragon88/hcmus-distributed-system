@@ -116,4 +116,24 @@ public class Worker
     {
         this.currentAvailable = currentAvailable;
     }
+
+    public Calendar getCreatedTime()
+    {
+        return createdTime;
+    }
+
+    public void setCreatedTime(final Calendar createdTime)
+    {
+        this.createdTime = createdTime;
+    }
+
+    public Calendar getLastUpdatedTime()
+    {
+        return lastUpdatedTime;
+    }
+
+    public void setLastUpdatedTime(final Calendar lastUpdatedTime)
+    {
+        this.lastUpdatedTime = lastUpdatedTime;
+    }
 }
