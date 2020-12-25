@@ -28,7 +28,7 @@ public class ScheduledConfiguration
         final MasterApi api = retrofit.create(MasterApi.class);
         final Call<APIResponse<String>> request = api.updateStatus(message);
         try {
-            new Builder<APIResponse<String>>().withCallable(request).build().executeWithRetry();
+            new Builder<APIResponse<String>>().withCall(request).build().executeWithRetry();
         }
         catch (final Exception e) {
             LOGGER.warn("Failed to update status");

@@ -1,17 +1,20 @@
 package vn.edu.hcmus.master_service.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class RetryExecutor<T>
 {
-    private final Call<T> callable;
+    private static final Logger LOGGER = LoggerFactory.getLogger(RetryExecutor.class);
+    private final Call<T> call;
     private int maxRetry = 3;
     private int maxRetryWait = 120;
 
-    public RetryExecutor(final Call<T> callable)
+    public RetryExecutor(final Call<T> call)
     {
-        this.callable = callable;
+        this.call = call;
     }
 
     public Response<T> executeWithRetry()
@@ -20,7 +23,7 @@ public class RetryExecutor<T>
         int currentRun = 0;
         while (currentRun < maxRetry) {
             try {
-                final Response<T> response = callable.clone().execute();
+                final Response<T> response = call.clone().execute();
                 if (!response.isSuccessful()) {
                     throw new RuntimeException(String.format("Error from server. Code : %s, Body: %s", response.code(), response.errorBody().string()));
                 }
@@ -33,7 +36,7 @@ public class RetryExecutor<T>
             long sleepTime = Math.round(Math.pow(2, currentRun));
             sleepTime = sleepTime > maxRetryWait ? maxRetryWait : sleepTime;
             try {
-                System.out.println(String.format("Sleeping %s to next retry", sleepTime));
+                LOGGER.info(String.format("Sleeping %s to next retry", sleepTime));
                 Thread.sleep(sleepTime * 1000);
             }
             catch (final InterruptedException e) {
@@ -65,25 +68,25 @@ public class RetryExecutor<T>
 
     public static class Builder<T>
     {
-        private Call<T> callable;
+        private Call<T> call;
         private int maxRetry = 3;
         private int maxRetryWait = 120;
         public Builder() {}
 
         public RetryExecutor<T> build()
         {
-            if (callable == null) {
-                throw new IllegalArgumentException("Callable must be passed");
+            if (call == null) {
+                throw new IllegalArgumentException("Parameter call is required");
             }
-            final RetryExecutor<T> executor = new RetryExecutor<>(callable);
+            final RetryExecutor<T> executor = new RetryExecutor<>(call);
             executor.setMaxRetry(maxRetry);
             executor.setMaxRetryWait(maxRetryWait);
             return executor;
         }
 
-        public Builder<T> withCallable(final Call<T> callable)
+        public Builder<T> withCall(final Call<T> callable)
         {
-            this.callable = callable;
+            this.call = callable;
             return this;
         }
 
