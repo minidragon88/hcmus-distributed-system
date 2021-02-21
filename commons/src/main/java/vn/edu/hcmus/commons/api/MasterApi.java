@@ -1,4 +1,4 @@
-package vn.edu.hcmus.worker_service.api;
+package vn.edu.hcmus.commons.api;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
