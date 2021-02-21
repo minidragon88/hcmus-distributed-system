@@ -10,11 +10,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 @Component
-public final class AddressUtility implements ApplicationContextAware
+public final class EnvironmentUtility implements ApplicationContextAware
 {
     private static ApplicationContext context;
 
-    private AddressUtility() {}
+    private EnvironmentUtility() {}
 
     public static String getServerAddress()
     {
@@ -39,6 +39,15 @@ public final class AddressUtility implements ApplicationContextAware
     public static int getMasterServerPort()
     {
         return Integer.valueOf(getEnvironment().getProperty("master.port"));
+    }
+
+    public static int getCapacity()
+    {
+        final String capacity = getEnvironment().getProperty("server.capacity");
+        if (capacity != null) {
+            return Integer.valueOf(capacity);
+        }
+        return Constants.DEFAULT_CAPACITY;
     }
 
     private static Environment getEnvironment()
