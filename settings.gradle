@@ -1,0 +1,4 @@
+rootProject.name = 'hcmus-distributed-system'
+include 'master-service'
+include 'worker-service'
+include 'commons'

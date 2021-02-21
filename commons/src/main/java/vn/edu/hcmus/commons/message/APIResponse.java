@@ -1,4 +1,4 @@
-package vn.edu.hcmus.master_service.message;
+package vn.edu.hcmus.commons.message;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

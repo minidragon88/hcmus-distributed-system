@@ -1,6 +1,6 @@
 package vn.edu.hcmus.master_service.util;
 
-import vn.edu.hcmus.master_service.message.WorkerStatusMessage;
+import vn.edu.hcmus.commons.message.WorkerStatusMessage;
 import vn.edu.hcmus.master_service.model.Worker;
 import vn.edu.hcmus.master_service.model.WorkerId;
 

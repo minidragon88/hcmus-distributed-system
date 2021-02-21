@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vn.edu.hcmus.master_service.message.APIResponse;
-import vn.edu.hcmus.master_service.message.WorkerStatusMessage;
+
+import vn.edu.hcmus.commons.message.APIResponse;
+import vn.edu.hcmus.commons.message.WorkerStatusMessage;
 import vn.edu.hcmus.master_service.model.Worker;
 import vn.edu.hcmus.master_service.model.WorkerId;
 import vn.edu.hcmus.master_service.service.WorkerService;
