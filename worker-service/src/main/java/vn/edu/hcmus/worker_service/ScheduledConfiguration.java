@@ -7,12 +7,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import vn.edu.hcmus.commons.message.APIResponse;
+import vn.edu.hcmus.commons.message.WorkerStatusMessage;
+import vn.edu.hcmus.commons.utils.RetryExecutor;
+import vn.edu.hcmus.commons.utils.Utilities;
 import vn.edu.hcmus.worker_service.api.MasterApi;
-import vn.edu.hcmus.worker_service.message.APIResponse;
-import vn.edu.hcmus.worker_service.message.WorkerStatusMessage;
 import vn.edu.hcmus.worker_service.util.AddressUtility;
-import vn.edu.hcmus.worker_service.util.RetryExecutor.Builder;
-import vn.edu.hcmus.worker_service.util.Utilities;
 
 @Configuration
 @EnableScheduling
@@ -28,7 +28,7 @@ public class ScheduledConfiguration
         final MasterApi api = retrofit.create(MasterApi.class);
         final Call<APIResponse<String>> request = api.updateStatus(message);
         try {
-            new Builder<APIResponse<String>>().withCall(request).build().executeWithRetry();
+            new RetryExecutor.Builder<APIResponse<String>>().withCall(request).build().executeWithRetry();
         }
         catch (final Exception e) {
             LOGGER.warn("Failed to update status");

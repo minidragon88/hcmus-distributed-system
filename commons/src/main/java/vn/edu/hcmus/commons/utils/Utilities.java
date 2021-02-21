@@ -1,4 +1,4 @@
-package vn.edu.hcmus.worker_service.util;
+package vn.edu.hcmus.commons.utils;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

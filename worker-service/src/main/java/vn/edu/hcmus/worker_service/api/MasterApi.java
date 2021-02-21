@@ -4,8 +4,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import vn.edu.hcmus.worker_service.message.APIResponse;
-import vn.edu.hcmus.worker_service.message.WorkerStatusMessage;
+import vn.edu.hcmus.commons.message.APIResponse;
+import vn.edu.hcmus.commons.message.WorkerStatusMessage;
 
 public interface MasterApi
 {
