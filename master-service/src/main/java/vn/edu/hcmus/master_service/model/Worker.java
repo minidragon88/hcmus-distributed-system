@@ -136,4 +136,10 @@ public class Worker
     {
         this.lastUpdatedTime = lastUpdatedTime;
     }
+
+    @Override
+    public String toString()
+    {
+        return String.format("Host: %s, port: %s, name: %s", getHostAddress(), getPort(), getServiceName());
+    }
 }

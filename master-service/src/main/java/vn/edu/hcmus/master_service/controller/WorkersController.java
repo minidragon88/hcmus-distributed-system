@@ -48,6 +48,9 @@ public class WorkersController
             worker = Utilities.toWorker(message);
         }
         else {
+            worker.setCapacity(message.getCapacity());
+            worker.setCurrentAvailable(message.getCurrentAvailable());
+            worker.setCurrentProcessing(message.getCurrentProcessing());
             worker.setLastUpdatedTime(Calendar.getInstance());
         }
         entityManager.persist(worker);
