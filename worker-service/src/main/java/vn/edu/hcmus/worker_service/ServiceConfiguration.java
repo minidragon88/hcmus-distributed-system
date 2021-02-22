@@ -11,9 +11,9 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import vn.edu.hcmus.commons.api.MasterApi;
 import vn.edu.hcmus.commons.message.APIResponse;
-import vn.edu.hcmus.commons.message.WorkerStatusMessage;
 import vn.edu.hcmus.commons.utils.RetryExecutor;
 import vn.edu.hcmus.commons.utils.Utilities;
+import vn.edu.hcmus.worker_service.tasks.TasksQueue;
 import vn.edu.hcmus.worker_service.util.EnvironmentUtility;
 
 @Configuration
@@ -25,10 +25,9 @@ public class ServiceConfiguration
     @Scheduled(initialDelay = 1_000, fixedDelay = 10_000)
     public void updateStatus()
     {
-        final WorkerStatusMessage message = new WorkerStatusMessage("worker", EnvironmentUtility.getServerAddress(), EnvironmentUtility.getServerPort(), EnvironmentUtility.getCapacity(), 0, EnvironmentUtility.getCapacity());
         final Retrofit retrofit = Utilities.getRetrofit(String.format("http://%s:%s", EnvironmentUtility.getMasterServerHost(), EnvironmentUtility.getMasterServerPort()));
         final MasterApi api = retrofit.create(MasterApi.class);
-        final Call<APIResponse<String>> request = api.updateStatus(message);
+        final Call<APIResponse<String>> request = api.updateStatus(TasksQueue.getTasksQueue().getStatusMessage());
         try {
             new RetryExecutor.Builder<APIResponse<String>>().withCall(request).build().executeWithRetry();
         }
