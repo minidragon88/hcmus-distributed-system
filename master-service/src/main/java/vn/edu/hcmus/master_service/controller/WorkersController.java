@@ -48,10 +48,12 @@ public class WorkersController
             worker = Utilities.toWorker(message);
         }
         else {
+            worker.setStatus(message.getStatus().name());
             worker.setCapacity(message.getCapacity());
             worker.setCurrentAvailable(message.getCurrentAvailable());
             worker.setCurrentProcessing(message.getCurrentProcessing());
             worker.setLastUpdatedTime(Calendar.getInstance());
+            worker.setLastSuccessUpdatedTime(Calendar.getInstance());
         }
         entityManager.persist(worker);
         return new APIResponse<String>(HttpStatus.OK.value(), "Registered successfully", null).toResponseEntity();

@@ -10,7 +10,7 @@ public final class Utilities
 
     public static Worker toWorker(final WorkerStatusMessage message)
     {
-        return new Worker(message.getServiceName(), message.getHostAddress(), message.getPort(), message.getCapacity(), message.getCurrentProcessing(), message.getCurrentAvailable());
+        return new Worker(message.getServiceName(), message.getHostAddress(), message.getPort(), message.getStatus().name(), message.getCapacity(), message.getCurrentProcessing(), message.getCurrentAvailable());
     }
 
     public static WorkerId toWorkerId(final WorkerStatusMessage message)

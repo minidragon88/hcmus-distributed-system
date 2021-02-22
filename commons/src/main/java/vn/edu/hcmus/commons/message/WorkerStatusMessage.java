@@ -8,12 +8,14 @@ public class WorkerStatusMessage
     private int capacity;
     private int currentProcessing;
     private int currentAvailable;
+    private Status status;
 
-    public WorkerStatusMessage(final String serviceName, final String hostAddress, final int port, final int capacity, final int currentProcessing, final int currentAvailable)
+    public WorkerStatusMessage(final String serviceName, final String hostAddress, final int port, final Status status, final int capacity, final int currentProcessing, final int currentAvailable)
     {
         this.serviceName = serviceName;
         this.hostAddress = hostAddress;
         this.port = port;
+        this.status = status;
         this.capacity = capacity;
         this.currentProcessing = currentProcessing;
         this.currentAvailable = currentAvailable;
@@ -77,5 +79,15 @@ public class WorkerStatusMessage
     public void setCurrentAvailable(final int currentAvailable)
     {
         this.currentAvailable = currentAvailable;
+    }
+
+    public Status getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(final Status status)
+    {
+        this.status = status;
     }
 }

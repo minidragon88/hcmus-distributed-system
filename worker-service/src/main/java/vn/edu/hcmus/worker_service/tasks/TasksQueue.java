@@ -1,5 +1,6 @@
 package vn.edu.hcmus.worker_service.tasks;
 
+import vn.edu.hcmus.commons.message.Status;
 import vn.edu.hcmus.commons.message.WorkerStatusMessage;
 import vn.edu.hcmus.worker_service.util.EnvironmentUtility;
 
@@ -46,6 +47,6 @@ public final class TasksQueue
 
     public WorkerStatusMessage getStatusMessage()
     {
-        return new WorkerStatusMessage("worker", EnvironmentUtility.getServerAddress(), EnvironmentUtility.getServerPort(), getAvailableCapacity(), getCurrentProcessing(), getAvailableCapacity());
+        return new WorkerStatusMessage("worker", EnvironmentUtility.getServerAddress(), EnvironmentUtility.getServerPort(), Status.UP, getAvailableCapacity(), getCurrentProcessing(), getAvailableCapacity());
     }
 }

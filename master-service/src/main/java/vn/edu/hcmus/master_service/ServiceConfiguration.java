@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import vn.edu.hcmus.commons.api.WorkerApi;
+import vn.edu.hcmus.commons.message.Status;
 import vn.edu.hcmus.commons.message.WorkerStatusMessage;
 import vn.edu.hcmus.commons.utils.RetryExecutor;
 import vn.edu.hcmus.commons.utils.Utilities;
@@ -44,20 +45,23 @@ public class ServiceConfiguration
             final Call<WorkerStatusMessage> request = workerApi.getStatus();
             try {
                 final WorkerStatusMessage message = new RetryExecutor.Builder<WorkerStatusMessage>().withCall(request).withMaxRetry(2).build().executeWithRetry().body();
+                worker.setStatus(message.getStatus().name().toLowerCase());
                 worker.setCapacity(message.getCapacity());
                 worker.setCurrentAvailable(message.getCurrentAvailable());
                 worker.setCurrentProcessing(message.getCurrentProcessing());
                 worker.setLastUpdatedTime(Calendar.getInstance());
+                worker.setLastSuccessUpdatedTime(Calendar.getInstance());
                 entityManager.persist(worker);
             }
             catch (final Exception e) {
                 LOGGER.warn("Failed to get status from " + worker.toString());
                 LOGGER.warn(e.getMessage());
-                if (Calendar.getInstance().getTimeInMillis() - worker.getLastUpdatedTime().getTimeInMillis() > EnvironmentUtility.getWaitForWorkerResponse()) {
+                if (Calendar.getInstance().getTimeInMillis() - worker.getLastSuccessUpdatedTime().getTimeInMillis() > EnvironmentUtility.getWaitForWorkerResponse()) {
                     LOGGER.warn("Removing " + worker.toString());
                     entityManager.remove(worker);
                 }
                 else {
+                    worker.setStatus(Status.BUSY.name());
                     worker.setLastUpdatedTime(Calendar.getInstance());
                     entityManager.persist(worker);
                 }
