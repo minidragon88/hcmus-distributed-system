@@ -65,7 +65,15 @@ public class Work
 
     public static Work fromBody(final WorkMessage message)
     {
-        return new Work(null, message.getLeft(), message.getRight(), message.getOperator().name(), message.getStatus().name());
+        String operator = null;
+        if (message.getOperator() != null) {
+            operator = message.getOperator().name();
+        }
+        String status = null;
+        if (message.getStatus() != null) {
+            status = message.getStatus().name();
+        }
+        return new Work(null, message.getLeft(), message.getRight(), operator, status);
     }
 
     public String getId()
