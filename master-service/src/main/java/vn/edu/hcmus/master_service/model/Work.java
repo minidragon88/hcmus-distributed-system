@@ -1,5 +1,7 @@
 package vn.edu.hcmus.master_service.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import vn.edu.hcmus.commons.message.WorkMessage;
 import vn.edu.hcmus.commons.message.WorkStatus;
 
@@ -15,14 +17,16 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "works")
+@JsonInclude(value = Include.NON_NULL)
 public class Work
 {
     @Id
     private String id;
     @Column(name = "left_operand")
-    private int left;
+    private Integer left;
     @Column(name = "right_operand")
-    private int right;
+    private Integer right;
+    private Integer result;
     private String operator;
     private String status;
 
@@ -41,7 +45,7 @@ public class Work
     public Work()
     {}
 
-    public Work(final String id, final int left, final int right, final String operator, final String status)
+    public Work(final String id, final Integer left, final Integer right, final Integer result, final String operator, final String status)
     {
         if (id == null) {
             this.id = UUID.randomUUID().toString();
@@ -73,7 +77,7 @@ public class Work
         if (message.getStatus() != null) {
             status = message.getStatus().name();
         }
-        return new Work(null, message.getLeft(), message.getRight(), operator, status);
+        return new Work(null, message.getLeft(), message.getRight(), message.getResult(), operator, status);
     }
 
     public String getId()
@@ -86,24 +90,34 @@ public class Work
         this.id = id;
     }
 
-    public int getLeft()
+    public Integer getLeft()
     {
         return left;
     }
 
-    public void setLeft(final int left)
+    public void setLeft(final Integer left)
     {
         this.left = left;
     }
 
-    public int getRight()
+    public Integer getRight()
     {
         return right;
     }
 
-    public void setRight(final int right)
+    public void setRight(final Integer right)
     {
         this.right = right;
+    }
+
+    public Integer getResult()
+    {
+        return result;
+    }
+
+    public void setResult(final Integer result)
+    {
+        this.result = result;
     }
 
     public String getOperator()
