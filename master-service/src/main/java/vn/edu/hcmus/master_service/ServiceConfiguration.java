@@ -12,10 +12,16 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import vn.edu.hcmus.commons.api.WorkerApi;
 import vn.edu.hcmus.commons.message.Status;
+import vn.edu.hcmus.commons.message.WorkStatus;
 import vn.edu.hcmus.commons.message.WorkerStatusMessage;
 import vn.edu.hcmus.commons.utils.RetryExecutor;
 import vn.edu.hcmus.commons.utils.Utilities;
+import vn.edu.hcmus.master_service.controller.WorkController;
+import vn.edu.hcmus.master_service.controller.work.DefaultWorkAccepter;
+import vn.edu.hcmus.master_service.controller.work.RejectWork;
+import vn.edu.hcmus.master_service.model.Work;
 import vn.edu.hcmus.master_service.model.Worker;
+import vn.edu.hcmus.master_service.service.WorkService;
 import vn.edu.hcmus.master_service.service.WorkerService;
 import vn.edu.hcmus.master_service.util.EnvironmentUtility;
 
@@ -23,6 +29,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import java.util.Calendar;
+import java.util.List;
 
 @Configuration
 @EnableScheduling
@@ -33,6 +40,7 @@ public class ServiceConfiguration
     private EntityManager entityManager;
     @Autowired
     private WorkerService workerService;
+    @Autowired WorkService workService;
 
     @Scheduled(initialDelay = 1_000, fixedDelay = 60_000)
     @Transactional
@@ -66,6 +74,18 @@ public class ServiceConfiguration
                     entityManager.persist(worker);
                 }
             }
+        }
+    }
+
+    @Scheduled(initialDelay = 5_000, fixedDelay = 60_000)
+    public void decideWorkAccepter()
+    {
+        final List<Work> works = workService.findTopWorkByStatusAndCreatedTime(11, WorkStatus.QUEUE);
+        if (works.size() > 10) {
+            WorkController.setWorkAccepter(new RejectWork());
+        }
+        else {
+            WorkController.setWorkAccepter(new DefaultWorkAccepter());
         }
     }
 

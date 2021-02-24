@@ -31,13 +31,13 @@ public class WorkService
 
     public List<Work> findTopWorkByStatusAndCreatedTime(final int limit, final WorkStatus status)
     {
-        final TypedQuery<Work> query = em.createQuery("SELECT w FROM Work WHERE status = ?1 w ORDER BY w.created_time", Work.class);
+        final TypedQuery<Work> query = em.createQuery("SELECT w FROM Work w WHERE status = ?1 ORDER BY w.createdTime", Work.class);
         return query.setParameter(1, status.name()).setMaxResults(limit).getResultList();
     }
 
     public List<Work> findTopWorkByStatusAndLastUpdatedTime(final int limit, final WorkStatus status)
     {
-        final TypedQuery<Work> query = em.createQuery("SELECT w FROM Work WHERE status = ?1 w ORDER BY w.last_updated_time", Work.class);
+        final TypedQuery<Work> query = em.createQuery("SELECT w FROM Work w WHERE status = ?1 ORDER BY w.createdTime", Work.class);
         return query.setParameter(1, status.name()).setMaxResults(limit).getResultList();
     }
 }
