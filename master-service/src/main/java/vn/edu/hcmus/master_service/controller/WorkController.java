@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.edu.hcmus.commons.message.APIResponse;
 import vn.edu.hcmus.commons.message.WorkMessage;
+import vn.edu.hcmus.master_service.controller.work.DefaultWorkAccepter;
+import vn.edu.hcmus.master_service.controller.work.WorkAccepter;
 import vn.edu.hcmus.master_service.model.Work;
 import vn.edu.hcmus.master_service.service.WorkService;
 
@@ -26,9 +28,15 @@ import java.util.Map;
 public class WorkController
 {
     @Autowired
-    private EntityManager entityManager;
+    private EntityManager em;
     @Autowired
     private WorkService workService;
+    private static WorkAccepter workAccepter = new DefaultWorkAccepter();
+
+    public static void setWorkAccepter(final WorkAccepter accepter)
+    {
+        workAccepter = accepter;
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<APIResponse<Work>> getWorkById(@PathVariable final String id)
@@ -44,8 +52,6 @@ public class WorkController
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public ResponseEntity<APIResponse<Work>> submit(@RequestHeader final Map<String, String> headers, @RequestBody final WorkMessage message)
     {
-        final Work work = Work.fromBody(message);
-        entityManager.persist(work);
-        return new APIResponse<Work>(HttpStatus.CREATED.value(), "Created", work).toResponseEntity();
+        return workAccepter.accept(em, message);
     }
 }
