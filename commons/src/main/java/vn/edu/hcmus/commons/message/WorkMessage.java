@@ -1,18 +1,20 @@
 package vn.edu.hcmus.commons.message;
 
-public class Work
+public class WorkMessage
 {
     private String id;
     private int left;
     private int right;
     private Operator operator;
+    private WorkStatus status;
 
-    public Work(final String id, final int left, final int right, final Operator operator)
+    public WorkMessage(final String id, final int left, final int right, final Operator operator, final WorkStatus status)
     {
         this.id = id;
         this.left = left;
         this.right = right;
         this.operator = operator;
+        this.status = status;
     }
 
     public String getId()
@@ -53,5 +55,15 @@ public class Work
     public void setOperator(final Operator operator)
     {
         this.operator = operator;
+    }
+
+    public WorkStatus getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(final WorkStatus status)
+    {
+        this.status = status;
     }
 }
