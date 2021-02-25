@@ -13,6 +13,6 @@ public interface MasterApi
         "Accept: application/json",
         "Content-Type: application/json"
     })
-    @POST("workers/status")
+    @POST("workers/register")
     Call<APIResponse<String>> updateStatus(@Body WorkerStatusMessage message);
 }

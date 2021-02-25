@@ -38,7 +38,7 @@ public class WorkersController
         return "Master!";
     }
 
-    @PostMapping("/status")
+    @PostMapping("/register")
     @Transactional(isolation = Isolation.SERIALIZABLE)
     public ResponseEntity<APIResponse<String>> register(@RequestHeader final Map<String, String> headers, @RequestBody final WorkerStatusMessage message)
     {
